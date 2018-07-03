@@ -3,14 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidReview.iml" filepath="$PROJECT_DIR$/AndroidReview.iml" />
-      <module fileurl="file://D:\workplace\AndroidReview\AndroidReview.iml" filepath="D:\workplace\AndroidReview\AndroidReview.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\workplace\AndroidReview\app\app.iml" filepath="D:\workplace\AndroidReview\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/image-process/image-process.iml" filepath="$PROJECT_DIR$/image-process/image-process.iml" />
       <module fileurl="file://$PROJECT_DIR$/interview/interview.iml" filepath="$PROJECT_DIR$/interview/interview.iml" />
       <module fileurl="file://D:\workplace\AndroidReview\image-process\loadbigimage.iml" filepath="D:\workplace\AndroidReview\image-process\loadbigimage.iml" />
       <module fileurl="file://$PROJECT_DIR$/tuya/tuya.iml" filepath="$PROJECT_DIR$/tuya/tuya.iml" />
-      <module fileurl="file://D:\workplace\AndroidReview\tuya\tuya.iml" filepath="D:\workplace\AndroidReview\tuya\tuya.iml" />
     </modules>
   </component>
 </project>
