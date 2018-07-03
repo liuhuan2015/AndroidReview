@@ -57,6 +57,7 @@
 
 #### 4 . 描述一下java中一个类的加载过程
 >Person person = new Person();<br>
+
 1 . 查找Person.class，并加载到内存中。<br>
 2 . 执行类里的静态代码块。<br>
 3 . 在堆内存里开辟内存空间，并分配内存地址。<br>
