@@ -1,1 +1,1 @@
-include ':app', ':image-process', ':tuya'
+include ':app', ':image-process', ':tuya', ':interview'
