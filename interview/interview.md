@@ -50,7 +50,7 @@
 （4）通过代理调用方法<br>
 
 #### 3 . 描述一下java中的异常体系
-![java中的异常体系](https://github.com/liuhuan2015/AndroidReview/blob/master/interview/images/java_%E5%BC%82%E5%B8%B8.png)
+![java中的异常体系](https://github.com/liuhuan2015/AndroidReview/blob/master/interview/images/java_%E5%BC%82%E5%B8%B8.png)<br>
 如图，java中异常体系的基类是Thorwable类（表示可抛出），它是所有异常和错误的超类，两个直接子类为Error和Exception，分别表示错误和异常。其中异常类Exception又分为运行时异常(RuntimeException)和非运行时异常。<br>
 * Error是程序无法处理的错误，比如OutOfMemoryError、ThreadDeath等。这些异常发生时， Java虚拟机（JVM）一般会选择线程终止。
 * Exception是程序本身可以处理的异常，这种异常分两大类运行时异常和非运行时异常，程序中应当尽可能去处理这些异常。运行时异常都是RuntimeException类及其子类异常，如NullPointerException、IndexOutOfBoundsException等， 这些异常是不检查异常，程序中可以选择捕获处理，也可以不处理。这些异常一般是由程序逻辑错误引起的， 程序应该从逻辑角度尽可能避免这类异常的发生。
