@@ -1,1 +1,1 @@
-include ':app', ':image-process', ':tuya', ':takeoff-game', ':palette',':interview'
+include ':app', ':image-process', ':tuya', ':takeoff-game', ':palette',':interview', ':surfaceview_use'

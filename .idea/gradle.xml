@@ -10,9 +10,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/image-process" />
-            <option value="$PROJECT_DIR$/palette" />
-            <option value="$PROJECT_DIR$/takeoff-game" />
             <option value="$PROJECT_DIR$/interview" />
+            <option value="$PROJECT_DIR$/palette" />
+            <option value="$PROJECT_DIR$/surfaceview_use" />
+            <option value="$PROJECT_DIR$/takeoff-game" />
             <option value="$PROJECT_DIR$/tuya" />
           </set>
         </option>
