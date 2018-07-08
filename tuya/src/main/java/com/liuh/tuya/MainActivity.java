@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("-------", "imageView.getWidth() : " + imageView.getWidth()
                 + " imageView.getHeight() : " + imageView.getHeight());
 
+        //因为画布是正方形的，所以这里代码设置了ImageView的宽高，以期和画布宽高一致
         ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
         layoutParams.width = screenWidth;
         layoutParams.height = screenWidth;
@@ -125,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             }
+
+
         });
 
     }

@@ -104,5 +104,77 @@ imageView.setOnTouchListener(new View.OnTouchListener() {
             }
         });
 ```
+#### 四 . 撕衣服的小项目
+原理：两张图片叠放在一起，手指在最上面一张图片上滑动时，让滑动经过的地方的色值变为透明<br>
+使用了一个中间Bitmap alterBitmap,这张图片的参数和背景图一致，手指滑动的过程中，修改这张中间Bitmap的手指经过区域的色值，<br>
+然后调用ivPre.setImageBitmap(alterBitmap)将其设置给ImageView。<br>
+核心代码还是在ImageView的OnTouchListener里面<br>
+```java
+  ivPre.setOnTouchListener(new View.OnTouchListener() {
+            int x, y;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        x = (int) event.getX();
+                        y = (int) event.getY();
+
+                        for (int i = -10; i < 11; i++) {
+                            for (int j = -10; j < 11; j++) {
+                                if (Math.sqrt(i * i + j * j) <= 10) {
+                                    alterBitmap.setPixel(x + i, y + j, Color.TRANSPARENT);
+                                }
+                            }
+                        }
+                        ivPre.setImageBitmap(alterBitmap);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        x = (int) event.getX();
+                        y = (int) event.getY();
+
+                        for (int i = -10; i < 11; i++) {
+                            for (int j = -10; j < 11; j++) {
+                                if (Math.sqrt(i * i + j * j) <= 10) {
+                                    alterBitmap.setPixel(x + i, y + j, Color.TRANSPARENT);
+                                }
+                            }
+                        }
+                        ivPre.setImageBitmap(alterBitmap);
+                        break;
+                    case MotionEvent.ACTION_UP:
+
+                        break;
+                }
+                return true;//事件结束，被消费掉了
+            }
+        });
+```
+#### 五 . 调色板
+android.graphics包下面有一个ColorMatrix类，内部有个长度为20的float[],组成一个四行五列的颜色矩阵用来表示颜色。<br>
+<pre>
+new float[]{
+            1 * result, 0, 0, 0, 0,//red
+            0, 1, 0, 0, 0,//green
+            0, 0, 1, 0, 0,//blue
+            0, 0, 0, 1, 0,//alpha
+                }
+</pre>
+代码使用：<br>
+```java
+                //颜色矩阵，四行五列
+                ColorMatrix cm = new ColorMatrix();
+                cm.set(new float[]{
+                        1 * result, 0, 0, 0, 0,//red
+                        0, 1, 0, 0, 0,//green
+                        0, 0, 1, 0, 0,//blue
+                        0, 0, 0, 1, 0,//alpha
+                });
+                paint.setColorFilter(new ColorMatrixColorFilter(cm));
+                canvas.drawBitmap(srcBitmap, new Matrix(), paint);
+                imageView.setImageBitmap(copyedBitmap);
+```
+随着seekbar的进度发生变化，我们可以对应的修改想改变的颜色.<br>
+颜色对应关系：青-------红，紫-------绿，黄-------蓝.
 
 
