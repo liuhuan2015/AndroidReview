@@ -42,11 +42,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.btn_mediaplayer:
+            case R.id.btn_update_ui:
                 intent.setClass(this, UpdateUiInThreadActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.btn_update_ui:
+            case R.id.btn_mediaplayer:
                 intent.setClass(this, MediaPlayerActivity.class);
                 startActivity(intent);
                 break;
