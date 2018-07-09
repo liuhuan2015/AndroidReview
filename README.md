@@ -206,7 +206,7 @@ VideoView是系统提供的简易的播放视频的控件，风格固定，如�
     }
 ```
 贴上一张MediaPlayer的生命周期流程图：<br>
-![]()
+![MediaPlayer生命周期图](https://github.com/liuhuan2015/AndroidReview/blob/master/surfaceview_use/images/mediaplayer_state_diagram.gif)
 
 
 
