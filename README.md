@@ -176,5 +176,40 @@ new float[]{
 ```
 随着seekbar的进度发生变化，我们可以对应的修改想改变的颜色.<br>
 颜色对应关系：青-------红，紫-------绿，黄-------蓝.
+#### 六 . SurfaceView + MediaPlayer播放视频
+SurfaceView控件可以在单位时间内完成界面的大量多次更新<br>
+其内部维持了一个双缓冲机制<br>
+可以在子线程中更新UI<br>
+它占用的内存和cpu的开销很大，在界面完全显示出来时才会初始化完毕，界面最小化时就会被销毁。<br>
+
+VideoView是系统提供的简易的播放视频的控件，风格固定，如果我们需要使用自定义风格的播放器的话，我们就需要使用到SurfaceView + MediaPlayer来自己定制界面显示。<br>
+贴上部分代码：<br>
+```java
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        System.out.println("SurfaceView被创建了");
+        try {
+            mMediaPlayer.reset();
+            mMediaPlayer.setDataSource("/mnt/sdcard/oppo.3gp");
+            mMediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mMediaPlayer.setDisplay(holder);
+        mMediaPlayer.start();
+        int position = sp.getInt("position", 0);
+        if (position == mMediaPlayer.getDuration()) {
+            mMediaPlayer.seekTo(0);
+        } else {
+            mMediaPlayer.seekTo(position);
+        }
+    }
+```
+贴上一张MediaPlayer的生命周期流程图：<br>
+![]()
+
+
+
+
 
 
