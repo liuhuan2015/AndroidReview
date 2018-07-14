@@ -208,6 +208,23 @@ VideoView是系统提供的简易的播放视频的控件，风格固定，如�
 贴上一张MediaPlayer的生命周期流程图：<br>
 ![MediaPlayer生命周期图](https://github.com/liuhuan2015/AndroidReview/blob/master/surfaceview_use/images/mediaplayer_state_diagram.gif)
 
+#### 七 . SoundPool
+在android.media包下面有一个SoundPool类，使用它可以把音频资源加载到内存，使用的时候可以直接从内存中读取出来。<br>
+应用场景：单位时间内需要播放一些密集、短促的音乐，比如：游戏中的开枪场景。<br>
+使用代码：<br>
+```java
+        soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+        soundId = soundPool.load(this, R.raw.shoot, 1);
+
+        findViewById(R.id.btn_shoot).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //priority stream priority (0 = lowest priority)
+                //loop mode (0 = no loop, -1 = loop forever)
+                soundPool.play(soundId, 1.0f, 1.0f, 0, 0, 1.0f);
+            }
+        });
+```
 
 
 
