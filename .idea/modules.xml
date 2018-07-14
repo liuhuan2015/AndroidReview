@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidReview.iml" filepath="$PROJECT_DIR$/AndroidReview.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contentprovider-access/contentprovider-access.iml" filepath="$PROJECT_DIR$/contentprovider-access/contentprovider-access.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contentprovider-provider/contentprovider-provider.iml" filepath="$PROJECT_DIR$/contentprovider-provider/contentprovider-provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/image-process/image-process.iml" filepath="$PROJECT_DIR$/image-process/image-process.iml" />
       <module fileurl="file://$PROJECT_DIR$/interview/interview.iml" filepath="$PROJECT_DIR$/interview/interview.iml" />
       <module fileurl="file://D:\workplace\AndroidReview\image-process\loadbigimage.iml" filepath="D:\workplace\AndroidReview\image-process\loadbigimage.iml" />

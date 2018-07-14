@@ -207,7 +207,6 @@ VideoView是系统提供的简易的播放视频的控件，风格固定，如�
 ```
 贴上一张MediaPlayer的生命周期流程图：<br>
 ![MediaPlayer生命周期图](https://github.com/liuhuan2015/AndroidReview/blob/master/surfaceview_use/images/mediaplayer_state_diagram.gif)
-
 #### 七 . SoundPool
 在android.media包下面有一个SoundPool类，使用它可以把音频资源加载到内存，使用的时候可以直接从内存中读取出来。<br>
 应用场景：单位时间内需要播放一些密集、短促的音乐，比如：游戏中的开枪场景。<br>
@@ -225,6 +224,65 @@ VideoView是系统提供的简易的播放视频的控件，风格固定，如�
             }
         });
 ```
+#### 八 . ContentProvider 内容提供者
+ContentProvider作为Android四大组件之一，在日常开发中用到的场景非常少。<br>
+
+主要使用场景为：一个应用程序需要对其它的应用程序暴露其私有数据访问和修改入口时。
+
+应用程序创建的数据库默认都是私有的，别的应用程序不可访问，如果有需求需要把自己的应用程序私有的数据库信息暴露给别的应用进行一些增删改查操作，则需要使用到内容提供者。<br>
+
+但是在实际的开发中，我们的应用内部的数据库数据一般是不会让其它的应用知道的。<br>
+
+系统的短信应用、联系人应用等，他们需要把自己的数据库对外暴露，以方便别的程序使用它们的数据，它们使用的便是ContentProvider。<br>
+
+module contentprovider_provider对外暴露数据入口，module contentprovider_access通过暴露的数据入口对其数据库数据进行了增删改查操作。<br>
+
+contentprovider_provider:<br>
+用SQLiteOpenHelper创建了一个数据库，然后使用ContentProvider对外提供了一个数据修改入口。<br>
+部分代码：<br>
+```java
+public class BankDBBackDoor extends ContentProvider {
+    
+    ......
+    
+
+    @Nullable
+    @Override
+    public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+        int code = mUriMatcher.match(uri);
+        if (SUCCESS == code) {
+            Log.e("-------", "......插入数据");
+            MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(getContext());
+            SQLiteDatabase db = myDBOpenHelper.getWritableDatabase();
+            db.insert("account", null, values);
+            //利用内容提供者的解析器，通知内容观察者数据发生了变化
+            getContext().getContentResolver().notifyChange(uri, null);
+        } else {
+            throw new IllegalArgumentException("口令不对，滚一边去...");
+        }
+        return null;
+    }
+  }
+```
+contentprovider_access:<br>
+用Uri来匹配contentprovider_provider对外暴露的资源位置，通过ContentResolver来进行增删改查。<br>
+部分代码：<br>
+```java
+    private void add() {
+        ContentResolver contentResolver = getContentResolver();
+        //Uri uri = Uri.parse("content://com.itheima.db/account");
+        Uri uri = Uri.parse("content://com.liuh.contentprovider_provider/account");
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", "zhangsan");
+        contentValues.put("money", 10000);
+        contentResolver.insert(uri, contentValues);
+    }
+```
+
+
+
+
+
 
 
 
