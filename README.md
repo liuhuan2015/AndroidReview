@@ -235,6 +235,13 @@ ContentProvider作为Android四大组件之一，在日常开发中用到的场�
 
 系统的短信应用、联系人应用等，他们需要把自己的数据库对外暴露，以方便别的程序使用它们的数据，它们使用的便是ContentProvider。<br>
 
+代码编写流程：<br>
+1. 写一个类继承ContentProvider,实现增删改查的方法
+2. 在清单文件中配置内容提供者,指定  android:authorities="com.liuh.contentprovider_provider" 
+3. 在内容提供者代码的内部 声明uriMatcher 
+4. 通过uriMatcher 检查uri的路径是否正确
+5. 在另外一个应用程序里面 通过contentResolver 增删改查
+
 module contentprovider_provider对外暴露数据入口，module contentprovider_access通过暴露的数据入口对其数据库数据进行了增删改查操作。<br>
 
 contentprovider_provider:<br>
@@ -245,7 +252,6 @@ public class BankDBBackDoor extends ContentProvider {
     
     ......
     
-
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
