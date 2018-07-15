@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.liuh.system_sms_access.MainActivity">
+
+    <Button
+        android:id="@+id/btn_add_sms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用内容提供者添加短信" />
+
+    <Button
+        android:id="@+id/btn_delete_sms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用内容提供者删除一条短信" />
+
+</LinearLayout>

@@ -59,7 +59,8 @@ public class BankDBBackDoor extends ContentProvider {
             MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(getContext());
             SQLiteDatabase db = myDBOpenHelper.getWritableDatabase();
             db.insert("account", null, values);
-            //利用内容提供者的解析器，通知内容观察者数据发生了变化
+            //利用内容提供者的解析器，通知内容观察者数据发生了变化，
+            //如果有别的应用注册这个Uri的内容观察者，就会收到消息
             getContext().getContentResolver().notifyChange(uri, null);
         } else {
             throw new IllegalArgumentException("口令不对，滚一边去...");

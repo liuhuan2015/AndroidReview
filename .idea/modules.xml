@@ -13,6 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/palette/palette.iml" filepath="$PROJECT_DIR$/palette/palette.iml" />
       <module fileurl="file://$PROJECT_DIR$/soundpool-use/soundpool-use.iml" filepath="$PROJECT_DIR$/soundpool-use/soundpool-use.iml" />
       <module fileurl="file://$PROJECT_DIR$/surfaceview_use/surfaceview_use.iml" filepath="$PROJECT_DIR$/surfaceview_use/surfaceview_use.iml" />
+      <module fileurl="file://$PROJECT_DIR$/system-sms-access/system-sms-access.iml" filepath="$PROJECT_DIR$/system-sms-access/system-sms-access.iml" />
       <module fileurl="file://$PROJECT_DIR$/takeoff-game/takeoff-game.iml" filepath="$PROJECT_DIR$/takeoff-game/takeoff-game.iml" />
       <module fileurl="file://$PROJECT_DIR$/tuya/tuya.iml" filepath="$PROJECT_DIR$/tuya/tuya.iml" />
     </modules>

@@ -284,6 +284,20 @@ contentprovider_access:<br>
         contentResolver.insert(uri, contentValues);
     }
 ```
+ContentObserver，内容观察者，可以注册一个ContentObserver来观察某一个Uri对应数据的变化。<br>
+```java
+	//注册内容观察者 
+		Uri uri = Uri.parse("content://com.liuh.contentprovider_provider/account");
+		getContentResolver().registerContentObserver(uri, true, new ContentObserver(new Handler()) {
+
+			@Override
+			public void onChange(boolean selfChange) {
+				System.out.println("我是观察者,我发现银行的数据库变化了.");
+				super.onChange(selfChange);
+			}
+			
+		});
+```
 
 
 
