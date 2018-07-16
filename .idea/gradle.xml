@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/executors-learn" />
             <option value="$PROJECT_DIR$/contentprovider-access" />
             <option value="$PROJECT_DIR$/contentprovider-provider" />
             <option value="$PROJECT_DIR$/image-process" />
