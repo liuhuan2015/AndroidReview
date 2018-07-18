@@ -32,6 +32,32 @@ Android 插件化学习
  3. Hook思想跳过清单验证
  插件化还需要掌握一些系统底层的知识，比如说IPC，Android系统，四大组件的启动过程，Apk的安装过程。
  #### 四 . 插件化实战体验
+ ##### 4.1 通过DexClassLoader加载插件APK
+ 先把经过验证的插件APK复制到宿主APP的files目录下面，这样保证了APK的安全性；<br>
+ 
+ 然后通过DexClassLoader进行加载的时候，指定插件APK的路径以及解压之后的dex存放路径。<br>
+ 
+ 最后通过反射调用插件里面的代码。<br>
+ ##### 4.2 通过面向接口（抽象）编程调用插件的代码
+ 这里讲了一种使用面向接口编程思想来调用插件代码的方法。<br>
+ 
+ 建一个pluginlibrary，我们的app以及plugin模块都要引用这个库pluginlibrary。具体代码实现可见module plugin-library、plugin-uselib、plugin-learn-uselib。<br>
+ 
+ 使用这种方式，最后在宿主加载插件的时候，可以直接把创建的对象转换为类库中的这个接口就可以，省去了反射的一系列繁琐操作。<br>
+ ```java
+                     Class<?> beanClass = mPluginClassLoader.loadClass("com.newabel.plugin_uselib.Bean");
+                     IBean beanObject = (IBean) beanClass.newInstance();
+ 
+                     beanObject.setName("哈哈哈哈");
+                     Toast.makeText(MainActivity.this, beanObject.getName(), Toast.LENGTH_SHORT).show();
+ ```
+##### 4.3 通过面向切面编程调用插件中的带回调方法
+
+ 
+ 
+ 
+ 
+ 
  
  
  

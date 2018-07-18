@@ -1,2 +1,2 @@
-include ':app', ':image-process', ':tuya', ':takeoff-game', ':palette',':interview', ':surfaceview_use', ':plugin-learn',
+include ':app', ':image-process', ':tuya', ':takeoff-game', ':palette',':interview', ':surfaceview_use', ':plugin-learn', ':plugin', ':plugin-library', ':plugin-uselib', ':plugin-learn-uselib',
         ':soundpool-use', ':contentprovider-provider', ':contentprovider-access', ':system-sms-access', ':executors-learn'

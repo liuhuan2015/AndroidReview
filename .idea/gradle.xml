@@ -15,7 +15,11 @@
             <option value="$PROJECT_DIR$/image-process" />
             <option value="$PROJECT_DIR$/interview" />
             <option value="$PROJECT_DIR$/palette" />
+            <option value="$PROJECT_DIR$/plugin" />
             <option value="$PROJECT_DIR$/plugin-learn" />
+            <option value="$PROJECT_DIR$/plugin-learn-uselib" />
+            <option value="$PROJECT_DIR$/plugin-library" />
+            <option value="$PROJECT_DIR$/plugin-uselib" />
             <option value="$PROJECT_DIR$/soundpool-use" />
             <option value="$PROJECT_DIR$/surfaceview_use" />
             <option value="$PROJECT_DIR$/system-sms-access" />
