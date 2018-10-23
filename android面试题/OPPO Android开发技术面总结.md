@@ -76,6 +76,61 @@ Broadcast分为：标准广播、有序广播、本地广播。
 
 #### 7. Touch事件是如何传递的？
 
+Touch 事件一般都是从最外层的 ViewGroup 开始传递的，首先会触发 ViewGroup 的 dispatchTouchEvent() 方法，dispatchTouchEvent() 方法内会调用 onInterceptTouchEvent() 方法，来决定是否拦截事件，
+如果拦截，则事件不会再向下传递，事件会交给 ViewGroup 的 onTouchEvent() 方法处理，如果不拦截，事件就会继续向下传递，如果下一层还是ViewGroup，处理流程一样，如果是View，并且这个View设置了onTouchListener，
+那么会调用这个 onTouchListener 的 onTouch() 方法，如果 onTouch() 方法返回true，处理完毕，如果返回false，那么事件就会传递给View的onTouchEvent() 进行处理。
+
+ 1. 一个事件系列以down事件开始，中间包含数量不定的move事件，最终以up事件结束
+ 2. 正常情况下，一个事件序列只能由一个View拦截并消耗
+ 3. ViewGroup默认不拦截任何事件
+ 4. View没有onInterceptTouchEvent方法，一旦事件传递给它，它的onTouchEvent方法会被调用
+
+#### 8. Handler的原理？
+Handler机制是android中的一种消息机制，主要用于在子线程中发消息到主线程，然后主线程做更新UI操作的场景。
+
+内部实现涉及到 Looper，MessageQueue，ThreadLocal等概念。
+
+Looper，消息轮询器，它会一直检查MessageQueue中是否有新的消息，有的话就会取出交给Handler进行处理，没有的话就会一直阻塞在那里。
+
+MessageQueue，消息队列，内部是通过一个单链表的数据结构来维护消息队列，这种数据结构在插入和删除的性能上比较有优势。
+
+ThreadLocal，线程内部的数据存储类，Handler在创建的时候，会采用当前线程的Looper来构造消息循环系统，那么这个Looper是如何获取的呢，
+使用的是ThreadLocal，ThreadLocal可以在不同的线程间互不干扰的存储和提供数据，通过ThreadLocal可以轻松的获取每个线程的Looper。
+
+线程默认是没有Looper的，如果想要使用Handler，就必须要为线程创建Looper，然后Handler通过Looper来构建消息循环系统。我们经常提到的主线程，UI线程，即ActivityThread，
+它在被创建时就会初始化Looper，这也是我们在主线程中默认可以直接使用Handler的原因。
+
+#### 9. ANR出现的情况有几种？怎么分析解决ANR问题？
+ANR，应用程序无响应，在 android 中，主线程如果在规定的时间内没有处理完相应的工作，就会出现 ANR。
+
+具体来说，有以下几种情况：<br>
+  1. 输入事件（按键和触摸事件）5s内没有被处理：Input event dispatching timed out
+  2. BroadcastReceiver接收到广播事件后(onReceive()方法)，在规定的时间内没有处理完（前台广播为10s，后台广播为60s）
+  3. service 前台20s，后台200s未完成启动：Timeout executing service
+  4. 其它情况
+
+分析解决：<br>
+  ANR问题是由于主线程的任务在规定时间内没处理完，因此要解决的话一般从以下几个方面：<br>
+  1. 主线程在做一些耗时的工作
+  2. 主线程被其他线程锁
+  3. cpu被其他进程占用，该进程没被分配到足够的cpu资源
+可以通过查看anr日志来具体分析产生anr的原因
+
+#### 10. 内存泄露的场景有哪些？内存泄漏分析工具使用方法？
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
