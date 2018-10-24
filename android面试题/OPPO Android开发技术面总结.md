@@ -117,6 +117,131 @@ ANR，应用程序无响应，在 android 中，主线程如果在规定的时�
 可以通过查看anr日志来具体分析产生anr的原因
 
 #### 10. 内存泄露的场景有哪些？内存泄漏分析工具使用方法？
+>来自文章[Android内存优化——常见内存泄露及优化方案](https://www.jianshu.com/p/ab4a7e353076)
+
+当一个无用对象（不需要再使用的对象）仍然被其它对象持有引用，那么就会造成这个对象无法被系统回收，以致该对象在堆中所占用的内存无法被释放，这种情况就是内存泄漏。
+
+比如说我们常用的Activity在关闭后，他原来占用的内存空间本该被系统回收的，但是由于有一个对象持有它的引用，造成它的内存空间无法被系统回收，这样就造成了内存泄漏。
+
+内存泄漏分析工具有LeakCanery等。
+
+常见的内存泄漏场景有：<br>
+1. 单例导致内存泄漏
+
+    单例的静态特性使得它的生命周期同应用生命周期一样长，如果一个对象已经没有用处了，但是单例还是持有它的引用，那个在整个应用程序的生命周期它都不能被系统回收，从而导致内存泄漏。
+2. 静态变量导致内存泄漏
+
+    静态变量在内存中只有一个，存放在方法区，属于类变量，被这个类的所有实例共享。
+
+    它的生命周期随着类的加载而开始，随着类的销毁而结束。
+
+    当某一个类的静态变量持有其所属类的引用时，就会造成所属类无法被销毁。因为静态变量和它的所属类形成了一种相互持有引用的关系。在开发中要进行避免这种写法。
+3. 非静态内部类导致内存泄漏
+
+    非静态内部类（包括匿名内部类）默认就会持有外部类的引用，当非静态内部类对象的生命周期比外部类对象的生命周期长时，就会导致内存泄漏。
+
+    一个典型的使用场景是Handler。
+
+    比如我们在程序中这样使用Handler：
+
+    ```java
+    // Handler类型的成员变量
+    private Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
+    ```
+    这样写的时候，系统就会提示我们：
+    ```java
+    This Handler class should be static or leaks might occur (anonymous android.os.Handler)
+    ```
+
+    当我们使用Handler发送Message的时候，Message是会持有Handler的引用的，而mHandler又是Activity的非静态内部类实例，因此mHandler会持有Activity的引用。
+    Message会被发送到MessageQueue中，等待Looper的轮询处理，所以当Activity退出的时候，Message可能仍然存在于MessageQueue中等待处理或正在处理，这样就会导致Activity无法被系统回收，从而导致内存泄漏。
+
+    在android中使用内部类，为了规避内存泄漏，一般会使用 静态内部类 + 弱引用 的方式。例如：
+    > 补充：WeakReference，弱引用，如果一个对象是弱引用类型，垃圾回收器线程在扫描的过程中一旦发现它存在，不管当前内存空间是否充足，都会回收它的内存。
+    垃圾回收器是一个优先级很低的线程，因此不一定会很快发现那些只有弱引用的对象。
+    ```java
+    // new 的动作也可以放在onCreate(...)中做
+    private MyHandler mHandler = new MyHandler(this);
+
+    private static class MyHandler extends Handler {
+
+        // 因为静态类不持有外部类的引用，所以这里建立一个对Activity的弱引用
+        private WeakReference<MainActivity> activityWeakReference;
+
+        public MyHandler(MainActivity activity) {
+            activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            MainActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                // 进行相关业务逻辑处理
+                if (msg.what == 1) {
+
+                }
+            }
+        }
+    }
+    ```
+    在Activity销毁的时候，还需要把mHandler的回调和发送的消息给移除掉。
+    ```java
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+    }
+    ```
+    非静态内部类造成内存泄漏还有一种情况就是线程的使用，比如Thread和AsyncTask等，解决方法也是 静态内部类 + 弱引用。
+4. 未取消注册或回调导致内存泄漏
+
+    比如说在Activity动态注册一个广播接收者，在Activity销毁的时候要注意取消注册，不然这个广播接收者会一直存在于系统中，它持有Activity的引用，导致Activity不能被销毁，造成内存泄漏。
+    这种情况程序在运行的时候AS就会就会给出提示的。
+5. Timer、TimerTask的使用导致的内存泄漏
+
+    Timer 和 TimerTask 会经常被用来做一些计时或循环任务，当Activity销毁的时候，Timer可能还在等待执行TimerTask，造成Activity不能被回收，进而造成内存泄漏。
+    因此在Activity销毁的时候，要cancel掉 Timer 和 TimerTask。
+6. 资源未关闭或释放导致内存泄露
+
+    在使用IO、File流或者Sqlite、Cursor等资源时要及时关闭。
+
+7. WebView造成内存泄漏
+
+#### 11. 如何实现启动优化，有什么工具可以使用？
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -8,6 +8,8 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +44,32 @@ public class MainActivity extends AppCompatActivity {
     private Bitmap alterBitmap;//一个可以被修改的图片
 
     private Canvas canvas;//画布
+
+    // new 的动作也可以放在onCreate(...)中做
+    private MyHandler mHandler = new MyHandler(this);
+
+    private static class MyHandler extends Handler {
+
+        // 因为静态类不持有外部类的引用，所以这里建立一个对Activity的弱引用
+        private WeakReference<MainActivity> activityWeakReference;
+
+        public MyHandler(MainActivity activity) {
+            activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            MainActivity activity = activityWeakReference.get();
+
+            if (activity != null) {
+                // 进行相关业务逻辑处理
+                if (msg.what == 1) {
+
+                }
+            }
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,4 +208,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+    }
 }
