@@ -216,7 +216,7 @@ ANR，应用程序无响应，在 android 中，主线程如果在规定的时�
 7. WebView造成内存泄漏
 
 #### 11. 如何实现启动优化，有什么工具可以使用？
-Android启动优化好像是一个大课题，详见[启动优化]()
+Android启动优化好像是一个大课题，详见[启动优化](https://github.com/liuhuan2015/AndroidReview/blob/master/android%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96.md)
 #### 12. 常用的设计模式有哪些？是否了解责任链模式？
 设计模式也是一个大课题，详见---
 
