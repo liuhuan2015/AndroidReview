@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return -1;
     }
 
-
+    // 斐波那契数列
     public int fibonacci(int n) {
         if (n == 0) {
             return 0;
@@ -97,9 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return fibonacci(n - 1) + fibonacci(n - 2);
     }
-
-    int[] shuzu;
-
 
     @Override
     public void onClick(View v) {
